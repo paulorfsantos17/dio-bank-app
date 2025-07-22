@@ -1,0 +1,31 @@
+from app.auth.domain.value_objects.email import Email
+from app.shared.domain.base_entity import BaseEntity
+
+
+class User(BaseEntity):
+  def __init__(self, id = None, created_at = None, name: str = None, email: Email = None, password_hash: str = None):
+    super().__init__(id, created_at)
+    self._name = name
+    self._email = email
+    self._password_hash = password_hash
+
+  @property
+  def name(self):
+    return self._name
+
+  @property
+  def email(self):
+    return self._email
+  
+  @property
+  def password_hash(self):
+    return self._password_hash
+  @email.setter
+  def email(self, email: Email):
+    self._email = email
+
+  @password_hash.setter
+  def password_hash(self, password_hash: str):
+    self._password_hash = password_hash
+    
+    

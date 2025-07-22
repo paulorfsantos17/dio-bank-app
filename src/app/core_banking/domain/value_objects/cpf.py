@@ -1,4 +1,3 @@
-# core_banking/domain/value_objects/cpf.py
 import re
 
 

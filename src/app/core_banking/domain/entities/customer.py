@@ -25,8 +25,8 @@ class Customer(BaseEntity):
     def cpf(self) -> CPF:
         return self._cpf
 
-    # Exemplo de método que poderia conter alguma regra de negócio
-    def change_name(self, new_name: str):
+    @name.setter# Exemplo de método que poderia conter alguma regra de negócio
+    def name(self, new_name: str):
         if not new_name:
             raise ValueError("Name cannot be empty.")
         self._name = new_name
