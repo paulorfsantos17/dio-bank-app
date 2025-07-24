@@ -5,6 +5,7 @@ from src.app.core_banking.domain.repositories.account_repository import (
 
 
 class InMemoryAccountRepository(AccountRepository):
+  accounts: list[Account]
   def __init__(self):
     self.accounts = []
 

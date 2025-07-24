@@ -6,6 +6,7 @@ from src.app.core_banking.domain.value_objects.cpf import CPF
 
 
 class InMemoryCustomerRepository(CustomerRepository):
+  customers: list[Customer]
   def __init__(self):
     self.customers = []
 
