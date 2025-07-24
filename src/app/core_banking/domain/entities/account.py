@@ -1,12 +1,12 @@
 from datetime import datetime
 
-from app.core_banking.domain.value_objects.money import Money
 from src.app.core_banking.domain.value_objects.cpf import CPF
+from src.app.core_banking.domain.value_objects.money import Money
 from src.app.shared.domain.base_entity import BaseEntity
 from src.app.shared.domain.objects_values.unique_entity_id import UniqueEntityId
 
 
-class Customer(BaseEntity):
+class Account(BaseEntity):
     def __init__(
         self,
         customer_id: UniqueEntityId,
@@ -31,10 +31,19 @@ class Customer(BaseEntity):
     @property
     def status(self) -> bool:
         return self._status
-      
+        
+        
     def deposit(self, amount: Money):
         self._balance += amount
     def withdraw(self, amount: Money):
         if amount.amount > self._balance.amount:
             raise ValueError("Insufficient funds")
         self._balance -= amount
+    @staticmethod
+    def create_account( id: str, customer_id: str, balance: float, status: bool):
+        return Account(
+            id=id or "1",
+            customer_id=customer_id or "1",
+            balance=balance or 100.0,
+            status=status or True
+        )

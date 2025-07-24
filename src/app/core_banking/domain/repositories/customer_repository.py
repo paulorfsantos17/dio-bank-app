@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 
 
-class CustommerRepository(ABC):
+class CustomerRepository(ABC):
   @abstractmethod
   def save(self, account):
     pass

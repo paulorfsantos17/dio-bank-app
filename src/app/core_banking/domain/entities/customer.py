@@ -1,3 +1,4 @@
+from dataclasses import dataclass
 from datetime import datetime
 
 from src.app.core_banking.domain.value_objects.cpf import CPF
@@ -5,6 +6,7 @@ from src.app.shared.domain.base_entity import BaseEntity
 from src.app.shared.domain.objects_values.unique_entity_id import UniqueEntityId
 
 
+@dataclass
 class Customer(BaseEntity):
     def __init__(
         self,
@@ -24,6 +26,7 @@ class Customer(BaseEntity):
     @property
     def cpf(self) -> CPF:
         return self._cpf
+
 
     @name.setter# Exemplo de método que poderia conter alguma regra de negócio
     def name(self, new_name: str):
