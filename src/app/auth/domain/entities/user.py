@@ -1,5 +1,5 @@
-from app.auth.domain.value_objects.email import Email
-from app.shared.domain.base_entity import BaseEntity
+from src.app.auth.domain.value_objects.email import Email
+from src.app.shared.domain.base_entity import BaseEntity
 from src.app.shared.domain.objects_values.cpf import CPF
 
 

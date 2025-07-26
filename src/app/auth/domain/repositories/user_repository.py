@@ -1,9 +1,11 @@
 from abc import ABC, abstractmethod
 
+from src.app.auth.domain.entities.user import User
+
 
 class UserRepository(ABC):
   @abstractmethod
-  def save(self, account):
+  def save(self, user: User):
     pass
 
   @abstractmethod

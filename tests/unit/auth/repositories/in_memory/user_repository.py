@@ -1,4 +1,4 @@
-from app.auth.domain.repositories.user_repository import UserRepository
+from src.app.auth.domain.repositories.user_repository import UserRepository
 
 
 class InMemoryUserRepository(UserRepository):
@@ -10,5 +10,8 @@ class InMemoryUserRepository(UserRepository):
 
   def find_by_id(self, id):
     return next(filter(lambda acc: acc.id == id, self.users), None)
+  
+  def find_by_cpf(self, cpf):
+    return next(filter(lambda acc: acc.cpf == cpf, self.users), None) 
   
 
