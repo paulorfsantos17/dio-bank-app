@@ -14,9 +14,9 @@ def make_register_user_use_case():
     in_memory_user_repository = InMemoryUserRepository()
     in_memory_hash_password_service = InMemoryHashPasswordService()
     
-    open_account_use_case = RegisterUserUseCase(
+    register_user_use_case = RegisterUserUseCase(
         user_repository=in_memory_user_repository,
         hash_password_service=in_memory_hash_password_service
     )
 
-    return open_account_use_case, in_memory_user_repository, in_memory_hash_password_service
+    return register_user_use_case, in_memory_user_repository, in_memory_hash_password_service

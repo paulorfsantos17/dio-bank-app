@@ -1,6 +1,7 @@
 import pytest
 
 from src.app.auth.application.dtos.register_user_input_dto import RegisterUserInputDTO
+from src.app.auth.application.expections.user_exceptions import AlreadyExistsUserError
 from src.app.auth.domain.entities.user import User
 from tests.factories.use_cases.register_use_case_factory import (
     make_register_user_use_case,
@@ -48,10 +49,13 @@ def test_register_user_fail_user_already_exists():
     cpf="123.456.789-00"
   )
   
-  with pytest.raises(Exception) as exc_info:
-    register_user_use_case.execute(data_register_user)
   
-  assert str(exc_info.value) == "User already exists"
+  with pytest.raises(AlreadyExistsUserError) as exc_info:
+    register_user_use_case.execute(data_register_user)
+    
+  user = in_memory_user_repository.find_by_cpf(data_register_user.cpf) 
+  
+  assert str(exc_info.value) == f"User with id '{str(user.id.value)}' already exists."
   
 
   
