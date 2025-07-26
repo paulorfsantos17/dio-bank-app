@@ -1,5 +1,7 @@
-from datetime import datetime, UTC
+from datetime import UTC, datetime
+
 from src.app.shared.domain.objects_values.unique_entity_id import UniqueEntityId
+
 
 class BaseEntity:
     def __init__(self, id: UniqueEntityId = None, created_at: datetime = None):

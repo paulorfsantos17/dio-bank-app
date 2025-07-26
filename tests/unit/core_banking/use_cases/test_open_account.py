@@ -7,9 +7,6 @@ from src.app.core_banking.application.expections.customer_exceptions import (
     CustomerAlreadyHasAccountError,
     CustomerNotFoundError,
 )
-from src.app.core_banking.application.use_cases.open_account_use_case import (
-    OpenAccountUseCase,
-)
 from tests.factories.use_cases.open_account_use_case_factory import (
     make_open_account_use_case,
 )

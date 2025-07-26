@@ -23,3 +23,6 @@ class Money:
         if not isinstance(other, Money):
             return False
         return self.amount == other.amount
+    
+    def value(self):
+        return float(self.amount)

@@ -1,7 +1,7 @@
 from datetime import datetime
 
-from app.shared.domain.base_entity import BaseEntity
 from src.app.core_banking.domain.value_objects.money import Money
+from src.app.shared.domain.base_entity import BaseEntity
 from src.app.shared.domain.objects_values.unique_entity_id import UniqueEntityId
 
 

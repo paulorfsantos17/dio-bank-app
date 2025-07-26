@@ -23,11 +23,11 @@ class Account(BaseEntity):
     @property
     def customer_id(self) -> UniqueEntityId:
         return self._customer_id
-      
+    
     @property
     def balance(self) -> Money:
         return self._balance
-      
+
     @property
     def status(self) -> bool:
         return self._status

@@ -18,6 +18,11 @@ class InMemoryAccountRepository(AccountRepository):
   def find_by_customer_id(self, id):
     return next(filter(lambda acc: acc.customer_id == id, self.accounts), None)
   
+  def update(self, account):
+    for index, acc in enumerate(self.accounts):
+      if acc.id == account.id:
+        self.accounts[index] = account
+  
   @staticmethod
   def create_account(id: str, customer_id: str, balance: float, status: bool):
     return Account(
