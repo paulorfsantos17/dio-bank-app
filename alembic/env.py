@@ -3,10 +3,13 @@ from logging.config import fileConfig
 from sqlalchemy import create_engine, pool
 
 from alembic import context
-from app.shared.database.models.user import user  # noqa
 from src.app.core_banking.infrastructure.orm.models.account import account_model  # noqa
+from src.app.core_banking.infrastructure.orm.models.transaction import (  # noqa
+    transaction_model,
+)
 from src.app.shared.config.settings import settings
 from src.app.shared.database.database_config import metadata
+from src.app.shared.database.models.user import user  # noqa
 
 #Models
 
