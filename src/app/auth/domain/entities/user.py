@@ -1,13 +1,15 @@
 from app.auth.domain.value_objects.email import Email
 from app.shared.domain.base_entity import BaseEntity
+from src.app.shared.domain.objects_values.cpf import CPF
 
 
 class User(BaseEntity):
-  def __init__(self, id = None, created_at = None, name: str = None, email: Email = None, password_hash: str = None):
+  def __init__(self, id = None, created_at = None, name: str = None, email: Email = None, password_hash: str = None, cpf: CPF = None):
     super().__init__(id, created_at)
     self._name = name
     self._email = email
     self._password_hash = password_hash
+    self._cpf = cpf
 
   @property
   def name(self):
@@ -16,6 +18,10 @@ class User(BaseEntity):
   @property
   def email(self):
     return self._email
+  
+  @property
+  def cpf(self):
+    return self._cpf
   
   @property
   def password_hash(self):

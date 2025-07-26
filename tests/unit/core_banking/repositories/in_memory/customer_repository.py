@@ -2,7 +2,7 @@ from src.app.core_banking.domain.entities.customer import Customer
 from src.app.core_banking.domain.repositories.customer_repository import (
     CustomerRepository,
 )
-from src.app.core_banking.domain.value_objects.cpf import CPF
+from src.app.shared.domain.objects_values.cpf import CPF
 
 
 class InMemoryCustomerRepository(CustomerRepository):
