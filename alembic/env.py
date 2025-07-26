@@ -3,7 +3,7 @@ from logging.config import fileConfig
 from sqlalchemy import create_engine, pool
 
 from alembic import context
-from src.app.auth.infrastructure.orm.models.user import user  # noqa
+from app.shared.database.models.user import user  # noqa
 from src.app.core_banking.infrastructure.orm.models.account import account_model  # noqa
 from src.app.shared.config.settings import settings
 from src.app.shared.database.database_config import metadata

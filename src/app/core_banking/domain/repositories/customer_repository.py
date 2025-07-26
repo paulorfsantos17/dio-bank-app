@@ -5,7 +5,7 @@ from src.app.core_banking.domain.entities.customer import Customer
 
 class CustomerRepository(ABC):
   @abstractmethod
-  def save(self, account) -> None:
+  def save(self, customer: Customer) -> None:
     pass
 
   @abstractmethod
