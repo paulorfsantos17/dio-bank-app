@@ -1,4 +1,4 @@
-from bcrypt import bcrypt
+import bcrypt
 
 from src.app.auth.domain.services.hash_password_service import HashPasswordService
 

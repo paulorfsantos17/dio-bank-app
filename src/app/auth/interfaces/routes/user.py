@@ -1,12 +1,12 @@
 from fastapi import APIRouter
 
-from app.auth.interfaces.schemas.register_user_schema import RegisterUserSchema
 from src.app.auth.interfaces.controllers.register_user_controller import (
     RegisterUserController,
 )
 from src.app.auth.interfaces.factories.make_register_user_usecase import (
     get_register_user_usecase,
 )
+from src.app.auth.interfaces.schemas.register_user_schema import RegisterUserSchema
 
 routes = APIRouter()
 

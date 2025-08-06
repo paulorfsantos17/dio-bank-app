@@ -1,6 +1,6 @@
 from fastapi import HTTPException, status
 
-from app.auth.application.dtos.register_user_input_dto import RegisterUserInputDTO
+from src.app.auth.application.dtos.register_user_input_dto import RegisterUserInputDTO
 from src.app.auth.application.use_cases.register_user_use_case import (
     RegisterUserUseCase,
 )

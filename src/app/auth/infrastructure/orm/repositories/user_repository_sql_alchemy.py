@@ -1,7 +1,7 @@
-from app.shared.database.models.user import user as user_model
 from src.app.auth.domain.entities.user import User
 from src.app.auth.domain.repositories.user_repository import UserRepository
 from src.app.shared.database.database_config import database
+from src.app.shared.database.models.user import user as user_model
 
 
 class UserRepositorySqlAlchemy(UserRepository):
