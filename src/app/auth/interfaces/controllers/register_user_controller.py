@@ -11,10 +11,10 @@ class RegisterUserController:
     def __init__(self, register_user_use_case: RegisterUserUseCase):
         self.register_user_use_case = register_user_use_case  
     
-    def execute(self, user: RegisterUserSchema):
+    async def execute(self, user: RegisterUserSchema):
         try:
             dto = RegisterUserInputDTO(**user.model_dump())
-            result = self.register_user_use_case.execute(dto)
+            result = await self.register_user_use_case.execute(dto)
             return {"message": "User registered successfully", "user_id": result.id}
         
         except ValueError as ve:

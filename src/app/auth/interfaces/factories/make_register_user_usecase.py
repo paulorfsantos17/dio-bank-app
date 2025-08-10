@@ -11,7 +11,6 @@ from src.app.auth.infrastructure.services.token_jwt_service import TokenJWTServi
 
 
 def get_register_user_usecase():
-  user_repository = UserRepositorySqlAlchemy()
-  token_service = TokenJWTService()
-  hash_password_service = HashPasswordBCryptdService()
-  return RegisterUserUseCase(user_repository, token_service, hash_password_service)
+    user_repository = UserRepositorySqlAlchemy()
+    hash_password_service = HashPasswordBCryptdService()
+    return RegisterUserUseCase(user_repository,hash_password_service)

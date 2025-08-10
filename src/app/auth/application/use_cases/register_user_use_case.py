@@ -13,8 +13,8 @@ class RegisterUserUseCase:
     self.hash_password_service = hash_password_service
 
   
-  def execute(self, user: RegisterUserInputDTO):
-    user_exists = self.user_repository.find_by_cpf(user.cpf)
+  async def execute(self, user: RegisterUserInputDTO):
+    user_exists = await self.user_repository.find_by_cpf(user.cpf)
     
     if(user_exists):
       raise AlreadyExistsUserError(str(user_exists.id.value))
@@ -29,7 +29,7 @@ class RegisterUserUseCase:
     )
     
     
-    self.user_repository.save(new_user)
+    await self.user_repository.save(new_user)
     
     
     return None
