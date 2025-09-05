@@ -10,5 +10,5 @@ user = sa.Table(
   sa.Column('email', sa.String(255)),
   sa.Column('password_hash', sa.String(255)),
   sa.Column('cpf', sa.String(14), nullable=False),
-  sa.Column('created_at', sa.DateTime, nullable=False)
+  sa.Column('created_at', sa.DateTime(timezone=True), nullable=False)
 )

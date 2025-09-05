@@ -10,6 +10,15 @@ class User(BaseEntity):
     self._email = email
     self._password_hash = password_hash
     self._cpf = cpf
+    
+  
+  def __repr__(self):
+    return (
+        f"User(id={self.id}, "
+        f"name='{self._name}', "
+        f"email='{self._email}', "
+        f"cpf='{self._cpf}')"
+    )
 
   @property
   def name(self):
@@ -33,5 +42,7 @@ class User(BaseEntity):
   @password_hash.setter
   def password_hash(self, password_hash: str):
     self._password_hash = password_hash
+    
+  
     
     

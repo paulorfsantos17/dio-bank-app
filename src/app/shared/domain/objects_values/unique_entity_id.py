@@ -1,11 +1,11 @@
 import uuid
 
+
 class UniqueEntityId:
     def __init__(self, id: str = None):
         if id is None:
             self._value = str(uuid.uuid4())
         else:
-            # aqui você pode adicionar validação para o id recebido (por exemplo, UUID válido)
             self._value = id
 
     @property
