@@ -2,7 +2,8 @@ from pydantic_settings import BaseSettings
 
 
 class Settings(BaseSettings):
-    database_url: str = "teste"
+    database_url: str
+    database_url_test: str
     environment: str = "production"
     jwt_token: str 
 
