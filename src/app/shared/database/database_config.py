@@ -9,7 +9,7 @@ from src.app.shared.config.settings import settings
 database = databases.Database(settings.database_url)
 
 # Metadata SQLAlchemy
-metadata = sqlalchemy.MetaData(schema="test_schema")
+metadata = sqlalchemy.MetaData()
 
 # Engine padrão (sincrono) para criar tabelas
 engine = sqlalchemy.create_engine(settings.database_url)

@@ -1,19 +1,15 @@
 from logging.config import fileConfig
 
-from sqlalchemy import create_engine, pool
+from sqlalchemy import create_engine, engine_from_config, pool
 
 from alembic import context
-from src.app.core_banking.infrastructure.orm.models.account import account_model  # noqa
-from src.app.core_banking.infrastructure.orm.models.transaction import (  # noqa
-    transaction_model,
-)
+from src.app.core_banking.infrastructure.orm.models.account import account_model
+from src.app.core_banking.infrastructure.orm.models.transaction import transaction_model
 from src.app.shared.config.settings import settings
 from src.app.shared.database.database_config import metadata
-from src.app.shared.database.models.user import user  # noqa
-
-#Models
-
-
+from src.app.shared.database.models.user import (
+    user,  # importe todos os models que usam metadata
+)
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
@@ -48,7 +44,7 @@ def run_migrations_offline() -> None:
     script output.
 
     """
-    url = config.get_main_option("sqlalchemy.url") or settings.database_ur
+    url = settings.database_url
     context.configure(
         url=url,
         target_metadata=target_metadata,
@@ -67,16 +63,14 @@ def run_migrations_online() -> None:
     and associate a connection with the context.
 
     """
-    url = config.get_main_option("sqlalchemy.url") or settings.database_ur
     connectable = create_engine(
-        url,
+        url=settings.database_url,
         poolclass=pool.NullPool,
     )
 
     with connectable.connect() as connection:
         context.configure(
-            connection=connection, 
-            target_metadata=target_metadata,
+            connection=connection, target_metadata=target_metadata
         )
 
         with context.begin_transaction():
@@ -87,3 +81,6 @@ if context.is_offline_mode():
     run_migrations_offline()
 else:
     run_migrations_online()
+
+
+print("Tabelas registradas:", metadata.tables.keys())

@@ -1,3 +1,5 @@
+from http import HTTPStatus
+
 from fastapi import APIRouter, Depends
 
 from src.app.auth.application.use_cases.register_user_use_case import (
@@ -13,7 +15,7 @@ from src.app.auth.interfaces.schemas.register_user_schema import RegisterUserSch
 
 routes = APIRouter()
 
-@routes.post("/register")
+@routes.post("/register", status_code=HTTPStatus.CREATED)
 async def register_user(user: RegisterUserSchema, use_case: RegisterUserUseCase = Depends(get_register_user_usecase)):
     register_user_controller = RegisterUserController(use_case)
     return await register_user_controller.execute(user=user)

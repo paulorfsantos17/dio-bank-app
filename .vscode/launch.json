@@ -5,6 +5,17 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "Debug Pytest",
+      "request": "launch",
+      "type": "python",
+      "module": "pytest",
+      "args": [
+        "-s", // para ver prints
+        "tests"
+      ],
+      "justMyCode": true
+    },
+    {
       "name": "Python Debugger: FastAPI",
       "type": "debugpy",
       "request": "launch",
