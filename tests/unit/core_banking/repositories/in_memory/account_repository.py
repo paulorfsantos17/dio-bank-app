@@ -9,16 +9,16 @@ class InMemoryAccountRepository(AccountRepository):
   def __init__(self):
     self.accounts = []
 
-  def save(self, account):
+  async def save(self, account):
     self.accounts.append(account)
 
-  def find_by_id(self, id):
+  async def find_by_id(self, id):
     return next(filter(lambda acc: acc.id == id, self.accounts), None)
   
-  def find_by_customer_id(self, id):
+  async def find_by_customer_id(self, id):
     return next(filter(lambda acc: acc.customer_id == id, self.accounts), None)
   
-  def update(self, account):
+  async def update(self, account):
     for index, acc in enumerate(self.accounts):
       if acc.id == account.id:
         self.accounts[index] = account

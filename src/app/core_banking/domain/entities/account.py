@@ -41,8 +41,15 @@ class Account(BaseEntity):
     @staticmethod
     def create_account( id: str, customer_id: str, balance: float, status: bool):
         return Account(
-            id=id or "1",
-            customer_id=customer_id or "1",
-            balance=balance or 100.0,
-            status=status or True
+        id=UniqueEntityId(id) if id else None,
+        customer_id=UniqueEntityId(customer_id),
+        balance=Money(balance),
+        status=status
+    )
+        
+    def __repr__(self):
+        return (
+            f"Account(id={self.id}, customer_id={self.customer_id}, "
+            f"balance={self.balance}, status={self.status}, "
+            f"created_at={self.created_at})"
         )

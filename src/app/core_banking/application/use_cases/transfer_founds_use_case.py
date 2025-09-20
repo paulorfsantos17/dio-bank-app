@@ -24,12 +24,12 @@ class TransferFoundsUseCase:
     self.account_repository = account_repository
     self.transaction_repository = transaction_repository
     
-  def execute(self, data_transfer_founds: TransferFundsInputDTO):
-    account_from = self.account_repository.find_by_id(data_transfer_founds.account_from)
+  async def execute(self, data_transfer_founds: TransferFundsInputDTO):
+    account_from = await self.account_repository.find_by_id(data_transfer_founds.account_from)
     if account_from is None:
       raise AccountNotFoundError(account_id=data_transfer_founds.account_from)
     
-    account_to = self.account_repository.find_by_id(data_transfer_founds.account_to)
+    account_to = await self.account_repository.find_by_id(data_transfer_founds.account_to)
     
     if  account_to is None:
       raise AccountNotFoundError(account_id=data_transfer_founds.account_to)
@@ -48,7 +48,7 @@ class TransferFoundsUseCase:
       timestamp=  datetime.now().timestamp()
     )
     
-    self.transaction_repository.save(
+    await self.transaction_repository.save(
       transaction
     )
     

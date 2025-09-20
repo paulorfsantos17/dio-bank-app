@@ -14,8 +14,8 @@ class GetAccountBalanceUseCase:
     self.account_repository = account_repository
     
   
-  def execute(self, account_id) -> GetAccountBalanceOutputDTO:
-    account = self.account_repository.find_by_id(account_id)
+  async def execute(self, account_id) -> GetAccountBalanceOutputDTO:
+    account = await self.account_repository.find_by_id(account_id)
     if account is None:
       raise AccountNotFoundError(account_id=account_id)
     

@@ -19,22 +19,23 @@ class OpenAccountUseCase:
     self.account_repository = account_repository
     self.customer_repository = customer_repository
     
-  def execute(self, new_data_account: OpenAccountInputDTO):
-    customer = self.customer_repository.find_by_id(new_data_account.customer_id)
+  async def execute(self, new_data_account: OpenAccountInputDTO):
+    customer = await self.customer_repository.find_by_id(new_data_account.customer_id)
     if customer is None:
       raise CustomerNotFoundError(customer_id=new_data_account.customer_id)
     
-    has_account = self.account_repository.find_by_customer_id(customer.id)
+    has_account = await  self.account_repository.find_by_customer_id(new_data_account.customer_id)
     
     
     if has_account is not None:
       raise CustomerAlreadyHasAccountError(customer_id=new_data_account.customer_id)
-    
+  
     account = Account.create_account(
       id=None,
       customer_id=customer.id,
       balance=new_data_account.initial_balance,
       status=True
     )
-    self.account_repository.save(account)
+    
+    await self.account_repository.save(account)
     return account

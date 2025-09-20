@@ -3,6 +3,7 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 
 from src.app.auth.interfaces.routes.user import routes as user_routes
+from src.app.core_banking.interfaces.routes.accounts import routes_accounts
 from src.app.shared.database.database_config import database
 
 
@@ -19,3 +20,4 @@ app = FastAPI(lifespan=lifespan)
 
 
 app.include_router(user_routes)
+app.include_router(routes_accounts)

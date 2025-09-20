@@ -10,13 +10,13 @@ class InMemoryCustomerRepository(CustomerRepository):
   def __init__(self):
     self.customers = []
 
-  def save(self, customer):
+  async def save(self, customer):
     self.customers.append(customer)
 
-  def find_by_id(self, id):
+  async def find_by_id(self, id):
     return next(filter(lambda acc: acc.id == id, self.customers), None)
   
-  def find_by_cpf(self, cpf):
+  async def find_by_cpf(self, cpf):
     return next(filter(lambda acc: acc.cpf == cpf, self.customers), None)
   
 

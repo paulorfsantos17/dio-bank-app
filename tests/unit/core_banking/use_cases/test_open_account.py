@@ -18,10 +18,10 @@ from tests.unit.core_banking.repositories.in_memory.customer_repository import (
 )
 
 
-def test_open_account_success():
+async def test_open_account_success():
   open_account_use_case, in_memory_customer_repository, in_memory_account_repository = make_open_account_use_case()
   
-  in_memory_customer_repository.save(
+  await in_memory_customer_repository.save(
     InMemoryCustomerRepository.create_customer_with_id("1")
   )
   
@@ -31,19 +31,19 @@ def test_open_account_success():
     initial_balance=100.0
   )
   
-  result = open_account_use_case.execute(data_new_account)
+  result =  await  open_account_use_case.execute(data_new_account)
   
-  in_memory_database_account = in_memory_account_repository.find_by_id(result.id)
+  in_memory_database_account = await in_memory_account_repository.find_by_id(result.id)
   
   assert in_memory_database_account is not None
   assert result is not None
   assert result.id is not None
   assert result.id == in_memory_database_account.id
-  assert result.customer_id  ==  "1"
-  assert result.balance == 100
+  assert result.customer_id.value  ==  "1"
+  assert result.balance.value() == 100
   
-def test_open_account_fail_when_customer_does_not_exist():
-  open_account_use_case, in_memory_customer_repository, in_memory_account_repository = make_open_account_use_case()
+async def test_open_account_fail_when_customer_does_not_exist():
+  open_account_use_case, _, _ = make_open_account_use_case()
   
   data_new_account: OpenAccountInputDTO = OpenAccountInputDTO(
     customer_id="not-exist",
@@ -52,20 +52,20 @@ def test_open_account_fail_when_customer_does_not_exist():
   
   
   with pytest.raises(CustomerNotFoundError) as exc_info:
-        open_account_use_case.execute(data_new_account)
+        await open_account_use_case.execute(data_new_account)
 
   assert str(exc_info.value) == f"Customer with ID '{data_new_account.customer_id}' not found."
   
   
 
-def test_open_account_fail_when_customer_already_has_an_account():
+async def test_open_account_fail_when_customer_already_has_an_account():
   open_account_use_case, in_memory_customer_repository, in_memory_account_repository = make_open_account_use_case()
   
-  in_memory_customer_repository.save(
+  await in_memory_customer_repository.save(
     InMemoryCustomerRepository.create_customer_with_id("1")
   )
   
-  in_memory_account_repository.save(
+  await in_memory_account_repository.save(
     InMemoryAccountRepository.create_account(id="1", customer_id="1", balance=100.0, status=True))
   
   data_new_account: OpenAccountInputDTO = OpenAccountInputDTO(
@@ -75,7 +75,7 @@ def test_open_account_fail_when_customer_already_has_an_account():
   
   
   with pytest.raises(CustomerAlreadyHasAccountError) as exc_info:
-        open_account_use_case.execute(data_new_account)
+        await open_account_use_case.execute(data_new_account)
 
   assert str(exc_info.value) == f"Customer with ID '{data_new_account.customer_id}' already has an account."
   
