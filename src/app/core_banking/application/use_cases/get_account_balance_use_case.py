@@ -20,6 +20,6 @@ class GetAccountBalanceUseCase:
       raise AccountNotFoundError(account_id=account_id)
     
     return GetAccountBalanceOutputDTO(
-      balance=account.balance,
-      account_id=account.id
+      balance=account.balance.value(),
+      account_id=account.id.value
     )

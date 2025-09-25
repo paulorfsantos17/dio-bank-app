@@ -29,7 +29,7 @@ async def test_open_account_e2e_success(client: AsyncClient):
     
     payload = {
         "customer_id": user_in_db.id.value,
-        "initial_balance": 0,
+        "initial_balance": 100,
     }
     
     response = await client.post("/accounts", json=payload)

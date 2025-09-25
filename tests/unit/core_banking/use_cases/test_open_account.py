@@ -7,6 +7,7 @@ from src.app.core_banking.application.expections.customer_exceptions import (
     CustomerAlreadyHasAccountError,
     CustomerNotFoundError,
 )
+from src.app.core_banking.domain.entities.account import Account
 from tests.factories.use_cases.open_account_use_case_factory import (
     make_open_account_use_case,
 )
@@ -66,7 +67,7 @@ async def test_open_account_fail_when_customer_already_has_an_account():
   )
   
   await in_memory_account_repository.save(
-    InMemoryAccountRepository.create_account(id="1", customer_id="1", balance=100.0, status=True))
+    Account.create_account(id="1", customer_id="1", balance=100.0, status=True))
   
   data_new_account: OpenAccountInputDTO = OpenAccountInputDTO(
     customer_id="1",

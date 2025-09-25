@@ -9,7 +9,9 @@ from src.app.core_banking.application.expections.account_exceptions import (
 from src.app.core_banking.application.expections.transactions_exceptions import (
     InsufficientFoundsError,
 )
+from src.app.core_banking.domain.entities.account import Account
 from src.app.core_banking.domain.value_objects.money import Money
+from src.app.shared.domain.objects_values.unique_entity_id import UniqueEntityId
 from tests.factories.use_cases.transfer_founds_use_case_factory import (
     make_transfer_founds_use_case,
 )
@@ -20,8 +22,8 @@ from tests.unit.core_banking.repositories.in_memory.account_repository import (
 
 async def test_transfer_founds_use_case_sucess():
   open_account_use_case, in_memory_transaction_repository, in_memory_account_repository = make_transfer_founds_use_case()
-  account_from = InMemoryAccountRepository.create_account(id="1", customer_id="1", balance=Money(100.0), status=True)
-  account_to = InMemoryAccountRepository.create_account(id="2", customer_id="1", balance=Money(100.0), status=True)
+  account_from = Account.create_account(id="1", customer_id="1", balance=Money(100.0), status=True)
+  account_to = Account.create_account(id="2", customer_id="1", balance=Money(100.0), status=True)
   
   await in_memory_account_repository.save(account_from)
   
@@ -29,8 +31,8 @@ async def test_transfer_founds_use_case_sucess():
   
   
   data_transfer_founds: TransferFundsInputDTO = TransferFundsInputDTO(
-    account_from="1",
-    account_to="2",
+    account_from= account_from.id.value,
+    account_to= account_to.id.value,
     amount=100.0
   )
   
@@ -46,16 +48,16 @@ async def test_transfer_founds_use_case_sucess():
   assert in_memory_database_transaction is not None
   assert result is not None
   
-  assert result.account_from == "1"
-  assert result.account_to == "2"
+  assert result.account_from.value == "1"
+  assert result.account_to.value == "2"
   assert result.amount == 100
   assert updated_account_from.balance == Money(0)
   assert updated_account_to.balance == Money(200)
   
 async def test_transfer_founds_use_case_fail_with_insufficient_funds():
   open_account_use_case, _ ,in_memory_account_repository = make_transfer_founds_use_case()
-  account_from = InMemoryAccountRepository.create_account(id="1", customer_id="1", balance=Money(50.0), status=True)
-  account_to = InMemoryAccountRepository.create_account(id="2", customer_id="1", balance=Money(0), status=True)
+  account_from = Account.create_account(id="1", customer_id="1", balance=Money(50.0), status=True)
+  account_to = Account.create_account(id="2", customer_id="1", balance=Money(0), status=True)
   
   await in_memory_account_repository.save(account_from)
   
@@ -76,7 +78,7 @@ async def test_transfer_founds_use_case_fail_with_insufficient_funds():
 
 async def test_transfer_founds_use_case_fail_with_account_to_not_found():
   open_account_use_case, _ ,in_memory_account_repository = make_transfer_founds_use_case()
-  account_from = InMemoryAccountRepository.create_account(id="1", customer_id="1", balance=Money(100.0), status=True)
+  account_from = Account.create_account(id="1", customer_id="1", balance=Money(100.0), status=True)
   
   await in_memory_account_repository.save(account_from)
   

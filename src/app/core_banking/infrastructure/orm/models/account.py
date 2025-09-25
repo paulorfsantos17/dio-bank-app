@@ -9,6 +9,6 @@ account_model = sa.Table(
   sa.Column('balance', sa.Float, nullable=False),
   sa.Column('created_at', sa.DateTime(timezone=True), nullable=False),
   sa.Column('status', sa.Boolean, nullable=False),
-  sa.Column('customer_id', sa.UUID(as_uuid=True), nullable=False)
+  sa.Column('customer_id', sa.UUID(as_uuid=True), sa.ForeignKey('user.id'), nullable=False)
 )
   

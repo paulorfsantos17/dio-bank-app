@@ -3,8 +3,10 @@ from decimal import ROUND_HALF_UP, Decimal
 
 class Money:
     def __init__(self, amount: float):
-        # Usando Decimal para evitar problemas com float
-        self.amount = Decimal(str(amount)).quantize(Decimal('0.01'), rounding=ROUND_HALF_UP)
+        if isinstance(amount, Money):
+            self.amount = amount.amount
+        else:
+            self.amount = Decimal(str(amount)).quantize(Decimal('0.01'), rounding=ROUND_HALF_UP)
 
     def __add__(self, other):
         if not isinstance(other, Money):

@@ -1,34 +1,35 @@
+from uuid import uuid4
+
 from src.app.core_banking.domain.entities.account import Account
-from src.app.core_banking.domain.repositories.account_repository import (
-    AccountRepository,
-)
+from src.app.core_banking.domain.value_objects.money import Money
 
 
-class InMemoryAccountRepository(AccountRepository):
-  accounts: list[Account]
-  def __init__(self):
-    self.accounts = []
+class InMemoryAccountRepository:
+    def __init__(self):
+        # simula uma tabela: {id: Account}
+        self._storage: dict[str, Account] = {}
 
-  async def save(self, account):
-    self.accounts.append(account)
+    async def save(self, account: Account) -> Account:
+        # garante que balance é Money
+        balance_vo = account.balance if isinstance(account.balance, Money) else Money(account.balance)
 
-  async def find_by_id(self, id):
-    return next(filter(lambda acc: acc.id == id, self.accounts), None)
-  
-  async def find_by_customer_id(self, id):
-    return next(filter(lambda acc: acc.customer_id == id, self.accounts), None)
-  
-  async def update(self, account):
-    for index, acc in enumerate(self.accounts):
-      if acc.id == account.id:
-        self.accounts[index] = account
-  
-  @staticmethod
-  def create_account(id: str, customer_id: str, balance: float, status: bool):
-    return Account(
-      id=id or "1",
-      customer_id=customer_id or "1",
-      balance=balance or 100.0,
-      status=status or True
-  )
+        new_account = Account(
+            id=account.id or str(uuid4()),
+            customer_id=account.customer_id,
+            balance=balance_vo,
+            status=account.status,
+        )
+        self._storage[new_account.id.value] = new_account
+        return new_account
 
+    async def find_by_id(self, account_id: str) -> Account | None:
+        return self._storage.get(str(account_id))
+
+    async def find_by_customer_id(self, customer_id: str) -> Account | None:
+        # retorna a primeira conta que encontrar para o customer_id
+        for account in self._storage.values():
+            if str(account.customer_id) == str(customer_id):
+                return account
+        return None
+    async def all(self) -> list[Account]:
+        return list(self._storage.values())
