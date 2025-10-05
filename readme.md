@@ -172,29 +172,29 @@ tests/
 ```
 
 ⚙️ Como Executar o Projeto
-1. Clonar o Repositório
-git clone https://github.com/paulorfsantos17/dio-bank-app.git
-cd dio-bank-app
+1. Clonar o Repositório  <br> 
+`git clone https://github.com/paulorfsantos17/dio-bank-app.git` <br>
+`cd dio-bank-app  `
 
-2. Instalar as Dependências
-poetry install
+2. Instalar as Dependências <br>
+`poetry install `
 
-3. Iniciar o banco de dados no docker
-docker-compose up
+3. Iniciar o banco de dados no docker <br>
+`docker-compose up`
 
-4. Executar as Migrações do Banco de Dados
-poetry run alembic upgrade head
+4. Executar as Migrações do Banco de Dados <br>
+`poetry run alembic upgrade head`
 
 
-5. Rodar a aplicação
-poetry run uvicorn src.main:app --reload
+5. Rodar a aplicação <br>
+`poetry run uvicorn src.main:app --reload`
 
-6. Rodar os Testes Automatizados
-```bash poetry run pytest ```
+6. Rodar os Testes Automatizados <br>
+` poetry run pytest `
 
 🧪 Testes
 
 Os testes são organizados utilizando o framework pytest, abrangendo os principais cenários de operações bancárias. Para rodar os testes, utilize o comando:
 
-poetry run pytest
+`poetry run pytest`
 
