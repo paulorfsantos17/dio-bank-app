@@ -190,7 +190,7 @@ poetry run alembic upgrade head
 poetry run uvicorn src.main:app --reload
 
 6. Rodar os Testes Automatizados
-poetry run pytest
+```bash poetry run pytest ```
 
 🧪 Testes
 
