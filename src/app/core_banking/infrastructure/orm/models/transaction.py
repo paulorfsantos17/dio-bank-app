@@ -9,6 +9,6 @@ transaction_model = sa.Table(
   sa.Column('amount', sa.Float, nullable=False),
   sa.Column('account_from', sa.UUID(as_uuid=True), nullable=False),
   sa.Column('account_to', sa.UUID(as_uuid=True), nullable=False),
-  sa.Column('created_at', sa.DateTime, nullable=False),
-  sa.Column('timestamp', sa.DateTime, nullable=False)
+  sa.Column('created_at', sa.DateTime(timezone=True),  nullable=False),
+  sa.Column('timestamp', sa.TIMESTAMP(timezone=True), nullable=False)
 )

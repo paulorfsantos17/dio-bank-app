@@ -17,6 +17,10 @@ class AccountRepositorySQLAlchemy(AccountRepository):
     record = AccountMapper.to_record(account)
     await database.execute(account_model.insert().values(**record))
     return account
+  async def update(self, account) -> Account:
+    record = AccountMapper.to_record(account)
+    await database.execute(account_model.update().where(account_model.c.id == record['id']).values(**record))
+    return account
 
   
   async def find_by_id(self, id):

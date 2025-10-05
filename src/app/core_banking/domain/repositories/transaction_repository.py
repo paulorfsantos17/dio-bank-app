@@ -13,3 +13,5 @@ class TransactionRepository(ABC):
   def find_by_id(self, id: str) -> Transaction | None:
     pass
   
+  
+  

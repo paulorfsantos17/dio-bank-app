@@ -74,3 +74,16 @@ async def client(db):
 
     async with AsyncClient(base_url="https://test", transport=transport, headers=headers) as client:
         yield client
+
+@pytest_asyncio.fixture
+async def access_token(client: AsyncClient):
+    payload = {
+        "name": "Ana Clara Souza",
+        "email": "ana.clara.souza@test.com",
+        "password": "Teste1234",
+        "cpf": "168.995.350-09"
+    }
+
+    await client.post("/register", json=payload)
+    response = await client.post("/auth", json={"cpf": payload["cpf"], "password": payload["password"]})
+    return response.json()["access_token"]

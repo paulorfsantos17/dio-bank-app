@@ -50,9 +50,9 @@ async def test_transfer_founds_use_case_sucess():
   
   assert result.account_from.value == "1"
   assert result.account_to.value == "2"
-  assert result.amount == 100
-  assert updated_account_from.balance == Money(0)
-  assert updated_account_to.balance == Money(200)
+  assert result.amount.value() == 100
+  assert updated_account_from.balance.value() == 0
+  assert updated_account_to.balance.value() == 200
   
 async def test_transfer_founds_use_case_fail_with_insufficient_funds():
   open_account_use_case, _ ,in_memory_account_repository = make_transfer_founds_use_case()

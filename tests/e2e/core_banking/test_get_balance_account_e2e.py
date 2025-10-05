@@ -10,7 +10,11 @@ from src.app.core_banking.infrastructure.orm.repositories.account_repository_sql
 )
 
 
-async def test_get_balance_account_e2e_success(client: AsyncClient):
+async def test_get_balance_account_e2e_success(client: AsyncClient, access_token: str):
+  headers = {
+        "Authorization": f"Bearer {access_token}"
+    }
+
   user = User(
     name="Jose Doe",
     email="jose.doe@test.com",
@@ -28,7 +32,7 @@ async def test_get_balance_account_e2e_success(client: AsyncClient):
   account_repo =  AccountRepositorySQLAlchemy()
   await account_repo.save(account)
   
-  response = await client.get(f'/accounts/{account.id.value}/balance')
+  response = await client.get(f'/accounts/{account.id.value}/balance', headers=headers)
   assert response.status_code == 200
   assert response.json()['balance'] == 100
   assert response.json()['account_id'] == account.id.value

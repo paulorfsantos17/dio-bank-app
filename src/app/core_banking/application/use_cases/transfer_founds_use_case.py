@@ -44,12 +44,15 @@ class TransferFoundsUseCase:
     transaction = Transaction(
       account_from=account_from.id,
       account_to=account_to.id,
-      amount=data_transfer_founds.amount,
-      timestamp=  datetime.now().timestamp()
+      amount=Money(data_transfer_founds.amount),
+      timestamp=  datetime.now()
     )
     
     await self.transaction_repository.save(
       transaction
     )
+    
+    await self.account_repository.update(account_from)
+    await self.account_repository.update(account_to)
     
     return transaction

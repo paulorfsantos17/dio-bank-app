@@ -31,5 +31,14 @@ class InMemoryAccountRepository:
             if str(account.customer_id) == str(customer_id):
                 return account
         return None
+    
+    async def update(self, account_id: str, **kwargs) -> Account | None:
+        stored_account = self._storage.get(str(account_id))
+        if stored_account:
+            for key, value in kwargs.items():
+                if hasattr(stored_account, key):
+                    setattr(stored_account, key, value)
+            return stored_account
+        return None
     async def all(self) -> list[Account]:
         return list(self._storage.values())
